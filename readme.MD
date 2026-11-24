@@ -1,82 +1,81 @@
-# PingChecker 🚀
+# PingChecker
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python" alt="Python 3.11+" />
-  <img src="https://img.shields.io/badge/FastAPI-0.110%2B-009688?style=for-the-badge&logo=fastapi" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/HTTPX-Async-5A67D8?style=for-the-badge&logo=httpx" alt="HTTPX" />
-</p>
+API REST desenvolvida com Python, FastAPI e HTTPX para consultar a disponibilidade de um endereço web, identificar o código de status HTTP e medir o tempo de resposta.
 
-Uma API REST desenvolvida com Python e FastAPI para verificar a disponibilidade de sites, consultar códigos de status HTTP e medir o tempo de resposta.
+## Funcionalidades
 
-## ✨ Funcionalidades
+- Verifica um endereço informado por URL.
+- Retorna o código de status HTTP.
+- Mede o tempo de resposta em milissegundos.
+- Trata falhas de conexão e timeout.
+- Retorna os resultados em JSON.
+- Disponibiliza documentação interativa pelo Swagger UI.
 
-- 🌐 Verificação de sites por URL
-- 📡 Consulta do código de status HTTP
-- ⏱️ Medição do tempo de resposta em milissegundos
-- 🛡️ Tratamento de erros de conexão e timeout
-- 📄 Respostas em formato JSON
-- 📚 Documentação interativa com Swagger UI
-
-## 🛠️ Tecnologias
+## Tecnologias
 
 - Python
 - FastAPI
 - HTTPX
 - Uvicorn
 
-## ⚙️ Instalação
+## Como executar localmente
 
-Clone o repositório:
-
-```bash
-git clone https://github.com/SEU-USUARIO/pingchecker.git
-```
-
-Entre na pasta do projeto:
+### 1. Clone o repositório
 
 ```bash
-cd pingchecker
+git clone https://github.com/nunogues/apicheck.git
+cd apicheck
 ```
 
-Instale as dependências:
+### 2. Crie um ambiente virtual (recomendado)
 
 ```bash
-pip install fastapi httpx uvicorn
+python -m venv .venv
 ```
 
-## ▶️ Executando a API
-
-Inicie o servidor com:
+Ative-o:
 
 ```bash
-python -m uvicorn main:app --reload
+# Windows
+.venv\\Scripts\\activate
+
+# Linux / macOS
+source .venv/bin/activate
 ```
 
-A API estará disponível em:
+### 3. Instale as dependências
 
-```text
-http://127.0.0.1:8000
+```bash
+pip install -r requirements.txt
 ```
 
-## 📌 Endpoint disponível
+### 4. Inicie o servidor
 
-### GET /check
+```bash
+uvicorn main:app --reload
+```
 
-Verifica um site e retorna informações sobre sua resposta HTTP.
+A API ficará disponível em `http://127.0.0.1:8000`.
 
-#### Parâmetros de consulta
+Documentação interativa: `http://127.0.0.1:8000/docs`.
+
+## Endpoint
+
+### `GET /check`
+
+Consulta um endereço web.
 
 | Parâmetro | Tipo | Descrição |
-|----------|------|-----------|
-| `url` | `string` | URL do site que será verificado |
+|---|---|---|
+| `url` | string | Endereço completo a consultar, incluindo `https://` |
 
-#### Exemplo de requisição
+Exemplo:
 
 ```http
 GET /check?url=https://example.com
 ```
 
-#### Exemplo de resposta
+Exemplo de resposta (valores ilustrativos):
 
 ```json
 {
@@ -90,61 +89,24 @@ GET /check?url=https://example.com
 }
 ```
 
-> Os valores são ilustrativos e podem variar conforme o site e a conexão.
+Se ocorrer timeout ou falha de conexão, a API retorna `success: false` e uma mensagem de erro em `data`.
 
-## ⚠️ Tratamento de erros
-
-A API também trata situações como:
-
-- Falha de conexão com o site
-- Tempo limite de resposta excedido
-
-### Exemplo de resposta de erro
-
-```json
-{
-  "success": false,
-  "data": {
-    "url": "https://example.com",
-    "error": "O site demorou demais para responder",
-    "code_status": null
-  }
-}
-```
-
-## 📚 Documentação interativa
-
-Com o servidor em execução, acesse:
+## Estrutura do projeto
 
 ```text
-http://127.0.0.1:8000/docs
-```
-
-Nessa página, você pode testar os endpoints diretamente pelo navegador.
-
-## 🗂️ Estrutura do projeto
-
-```text
-pingchecker/
+apicheck/
 ├── main.py
+├── requirements.txt
 └── routes/
     ├── __init__.py
-    ├── health.py
-    └── check.py
+    ├── check.py
+    └── health.py
 ```
 
-## 🎯 Objetivo
+## Observação de segurança
 
-O PingChecker é um projeto de aprendizado voltado ao desenvolvimento de APIs REST, ao consumo de serviços HTTP, ao tratamento de erros e à organização de aplicações Python.
+O endpoint recebe uma URL e faz uma requisição para ela. Antes de disponibilizar esta API publicamente, implemente validação de URLs e controles contra acesso a endereços internos ou privados (SSRF), além de limites de uso.
 
-## 📌 Status do projeto
+## Objetivo
 
-Em desenvolvimento 🚧
-
-Novas funcionalidades e melhorias poderão ser adicionadas conforme a evolução do projeto.
-
----
-
-<p align="center">
-  <strong>Desenvolvido com Python 🐍</strong>
-</p>
+Projeto de aprendizado sobre desenvolvimento de APIs REST, requisições HTTP, tratamento de erros e organização de aplicações com FastAPI.
