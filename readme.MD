@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="https://github.com/nunogues/apicheck/actions/workflows/tests.yml/badge.svg" alt="Python tests" />
+</p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/nunogues/apicheck/main/assets/banner.svg" alt="PingChecker — status HTTP e tempo de resposta" width="100%" />
 </p>
 
